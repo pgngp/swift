@@ -1,0 +1,149 @@
+##########################################
+ROADMAP
+##########################################
+
+*********************************************
+Roadmap (features)
+*********************************************
+- Accept reads of variable length.
+- When the program is invoked, make sure the command-line parameters
+and parameters in common.h are acceptable.
+- Add tests to validate the final output of paired-end alignment.
+- Think of a way to allow a fixed number of mismatches in the seeding stage.
+
+
+*********************************************
+Todo (code refactoring)
+*********************************************
+- At the start of the program, check if the temporary directory 
+specified in src/common.h exists.
+- At the start of the program, check if the 'char', 'int', 'uint', 'long', 
+and 'ulong' sizes, min and max are as expected.
+- 'N' should match any base in Phase 1.
+
+
+*********************************************
+Versions
+*********************************************
+
+Version 0.11.1: (2012-05-09)
+----------------
+- Added multi-threaded CPU-based indexing and filtering based on SSAHA paper.
+- Added multi-threaded CPU-based Smith-Waterman for performance comparison.
+
+
+Version 0.10: (2011-08-15)
+--------------
+(1) Reduced storage needed by HitList and RefPosList data structures.
+(2011-08-15)
+(2) Moved hashtable code from reference.cu to a separate file. (2011-08-15)
+
+
+Version 0.09: (2011-08-10)
+--------------
+(1) Use thread blocks in the Y dimension in addition to blocks in X dimension. 
+(Since use of 2-dimensional blocks doesn't improve performance but uses more 
+host memory, I have decided to use only 1-dimensional blocks for now.) 
+(2011-07-19)
+(2) Only output the best alignment for a given query (single-end). (This 
+implementation doesn't take into account the fact that a given query may 
+have alignments in different batches in Phase 2.) (2011-07-20)
+(3) Only output the best alignment for a pair of queries (paired-end). 
+(2011-08-02)
+(4) 'N' matches any base in Phase 2. (2011-07-28)
+
+
+Version 0.08: (2011-07-18)
+--------------
+(1) Ported Phase 1 (seeding step) to GPU (currently works for single-end 
+reads only). (2011-06-15)
+(2) Added tests to validate single-end alignment output. (2011-06-24)
+(3) In the alignment output, show '|' for match, '.' for mismatch, and '-' for 
+gap. (2011-07-13)
+
+
+Version 0.07: (2011-05-16)
+--------------
+(1) Created a CPU-based implementation of Smith-Waterman for performance 
+comparison purposes. (2011-05-04)
+(2) Changed program name and executable name from 'gpuSW' to 'swift' in 
+README and Makefile. (2011-05-04)
+(3) Implemented paired-end read alignment. Currently, all valid pairs 
+(irrespective of scores) are output. (2011-05-16)
+(4) Added command-line parameter '-cpu' using which the user can indicate
+whether the program should be run on CPU only. (2011-05-16)
+
+
+Version 0.06: (2011-04-21)
+-------------
+(1) Added support for gap open penalty and gap extension penalty. (2011-04-19)
+(2) Works with 24 million queries and chr1 on both Vigor-cuda machine as 
+well as GPU-server. (2011-04-21)
+
+
+Version 0.05: (2011-04-19)
+-------------
+- Removed unused functions. (2011-03-30)
+- Reduced GPU memory requirements. (2011-04-19)
+- Fixed the "unspecified launch failure" gpu error that I used to get 
+when I aligned 24 million queries with chr1. I'm not getting this 
+error on Vigor-cuda machine, but I still get it on the GPU-server. (2011-04-18)
+- Added test cases for functions in align.cu and smithWaterman.cu. (2011-04-19) 
+- Added a new function in hitList.cu that copies the given node by first 
+creating a new HitList node and then copying the contents of the given node 
+into the new node. (2011-04-08)
+
+
+Version 0.04: (2011-03-28)
+-------------
+- Now performing Smith-Waterman alignment on reverse-complement of queries. 
+(2011-03-09)
+- If one of the required command-line parameters are not entered during 
+program invocation, the program prints usage and exits. (2011-03-09)
+- Hash table is not cached any more. (2011-03-29)
+- This version works with 24 million queries and chromosome 1.
+
+
+Version 0.03: (2011-03-08)
+-------------
+- Perform Smith-Waterman alignment on all best-matches instead of only one.
+(2011-03-03)
+- Add a command-line parameter using which user can specify output file.
+(2011-03-03)
+- Add a command-line parameter using which user can specify output format.
+(2011-03-03)
+- Add a command-line parameter using which user can specify match score.
+(2011-03-03)
+- Add a command-line parameter using which user can specify mismatch score.
+(2011-03-03)
+- Make the filtered results file path more platform-independent. 
+(2011-03-03)
+- When pre-processing reference sequences, consider non-overlapping 
+tuples intead of overlapping tuples. (2011-03-03)
+- For each query, randomly choose 5 or 10 best-matches in phase-1. (2011-03-04)
+- Pass the file pointer instead of file name in print functions in phase-2.
+(2011-03-07)
+- Fixed a bug because of which reference IDs were printed out in the final 
+alignment output. (2011-03-07)
+
+
+Version 0.02: (2011-03-03)
+-------------
+- Remove hard-coding of 'matchFile'. (2011-03-01)
+- Remove hard-coding of output format in align.cu. (2011-03-01)
+- Add command-line help. (2011-03-01)
+- Calculate the number query sequences automatically. (2011-03-01)
+- Calculate the size of each query sequence automatically. (2011-03-01)
+- Calculate the number of reference sequences automatically. (2011-03-01)
+- Calculate the size of each reference sequence automatically. (2011-03-01)
+- Store pre-processed reference tuples in a file. (2011-03-03)
+
+
+
+
+
+
+
+
+
+

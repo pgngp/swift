@@ -1,0 +1,168 @@
+
+##########################################
+README
+##########################################
+Last updated: 2012-05-09
+
+
+******************************************
+About
+******************************************
+This program aligns queries to references sequences using Smith-Waterman 
+algorithm. The Smith-Waterman algorithm is executed on the GPU. Query 
+and reference sequences should be in FASTA format.
+
+The program has 2 phases. In phase-1, regions in the reference sequences 
+which have high density of query tuples are identified using the method 
+described in (Ning et al., 2001). In phase-2, Smith-Waterman algorithm
+is performed between each query sequence and regions in the reference 
+sequences obtained in phase-1. Phase-2 is executed on the GPU card in 
+a highly parallel manner. The output is printed out in the file specified 
+by the user during program invocation. The default output contains 
+for each query, the query name, reference name, alignment, alignment score, 
+alignment start and end positions, and alignment length.
+
+Some of the features of this program are:
+- Aligns multiple query sequences to multiple reference sequences.
+- Only outputs the best alignment for a given query. 
+- Default output contains query name, reference name, alignment score, 
+alignment start and end positions, alignment length, and actual alignment.
+- Alignment can also be output in SAM format (feature maybe currently broken)
+- Paired-end alignment (feature maybe currently broken)
+
+
+******************************************
+Hardware requirements
+******************************************
+Following are the minimum hardware requirements: 
+GPU:
+- CUDA capable graphics card
+- GPU global memory: 938 MB
+- GPU shared memory per block: 16 KB
+- Number of registers available per block: 16384
+
+CPU:
+- System memory: 4 GB
+
+
+******************************************
+Software requirements
+******************************************
+Following are the minimum software requirements:
+CUDA:
+- CUDA Driver Version: 3.0
+- CUDA Runtime Version: 3.0
+- CUDA Capability Major revision number: 1
+- CUDA Capability Minor revision number: 3
+
+Miscellaneous:
+- Linux Operating System (I used Ubuntu 10.04)
+- 'Check' C unit-test framework version 0.9.8 (only if you want 
+to run unit-tests)
+
+
+******************************************
+Installation
+******************************************
+Following are the steps you need to take to install this program:
+
+Step 1: Change to the directory containing the program:
+$ cd /path/to/program/directory
+
+Step 2: Open 'src/common.h', and change the value of TMP_DIR macro 
+appropriately. Make sure the directory specified in TMP_DIR macro exists.
+
+Step 3: Run make:
+$ make
+
+Step 4: Run the program (single-end queries):
+$ ./bin/swift -q <query file> -r <reference file> -o <output file>
+
+Run the program (paired-end queries):
+$ ./bin/swift -q <query file> -q2 <second query file> -r <reference file> -o <output file>
+
+To see what command-line parameters are available, run the program with '-h' 
+parameter:
+$ ./bin/swift -h
+
+
+******************************************
+Running the program
+******************************************
+Use the following command to run the program for single-end queries:
+$ ./bin/swift -q <query file> -r <reference file> -o <output file>
+
+Use the following command to run the program for paired-end queries:
+$ ./bin/swift -q <query file> -q2 <second query file> -r <reference file> -o <output file>
+
+To see what command-line parameters are available, run the program with '-h' 
+parameter:
+$ ./bin/swift -h
+
+
+******************************************
+Running unit-tests
+******************************************
+Step 1: Change to the directory containing the program:
+$ cd /path/to/program/directory
+
+Step 2: Open 'src/common.h' and change the value of TMP_DIR and 
+PATH_SEPARATOR macros appropriately. Make sure the directory specified 
+in TMP_DIR macro exists.
+
+Step 3: Run make check:
+$ make check
+
+Step 4: Run the tests:
+$ ./bin/test
+
+Step 5: The output will mention whether all tests were successful.
+
+
+******************************************
+Testing alignment output
+******************************************
+Step 1: Change to the directory containing the program:
+$ cd /path/to/program/directory
+
+Step 2: Run 'make testOutput'
+$ make testOutput
+
+Step 3: Run the tests:
+$ ./bin/testOutput -q <query file> -r <ref file> -a <alignment file> 
+-o <output file>
+
+Step 4: The output will mention whether all tests were successful.
+
+Note: For usage and description, run testOutput with -h option:
+$ ./bin/testOutput -h
+
+
+******************************************
+Profiling the code
+******************************************
+In order to profile the code to determine what functions take 
+the most amount of time, follow these steps:
+
+Step 1: Change to the directory containing the program:
+$ cd /path/to/program/directory
+
+Step 2: Run make profile:
+$ make profile
+
+Step 3: Run the program to generate profiling data:
+$ ./bin/swift -q <query file> -r <reference file> -o <output file>
+This will output profiling data in a file named "gmon.out", which is 
+a binary file.
+
+Step 4: Convert binary profiling data to human-readable text format:
+$ gprof /path/to/executable >gprof.out
+The file "gprof.out" will contain in text format functions and the 
+amount of time they take during execution. 
+
+
+******************************************
+Contact
+******************************************
+For help or for reporting bugs or comments, please contact Pankaj Gupta 
+at pankaj.gupta@stjude.org or John Obenauer at john.obenauer@stjude.org.

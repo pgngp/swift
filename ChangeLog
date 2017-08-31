@@ -1,0 +1,476 @@
+2012-05-30  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/main.cu (getUsage): Removed optional parameters that were unnecessary.
+
+2012-05-09  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* README: Updated. 
+
+2011-11-17  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testSearch.cu: Added test cases for searchQueries3() function.
+	* src/main.cu: Moved NUM_THREADS macro from within search.cu to common.h.
+
+2011-08-11  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/align.cu (getNumQrsPerIter_paired): Fixed a bug. 
+
+2011-08-10  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/hitList.h: Removed 'seqOffset' data member because it wasn't being 
+	used. 
+	* src/refPosList.h: Removed 'seqOffset' data member because it wasn't 
+	being used.
+
+2011-07-22  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/smithWaterman.cu (computeMaxScore): Changed nucleotide comparison
+	code such that the nucleotide 'N' matches any nucleotide.  
+
+2011-07-05  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (insertionSort3_gpu): Added new function. 
+
+2011-06-20  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (quickSort2_gpu): Added new function. 
+
+2011-06-16  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/align.cu: Some query names in the latter half of the alignment 
+	output file were strange. This is now fixed.
+	* src/refPosMap.cu (binarySearch): Added new function. 
+
+2011-06-15  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/search.cu (searchQueries_gpu): Speeded-up the concatenation of 
+	query sequences. 
+
+2011-05-24  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testReference.cu: Added test cases to test strncpy_gpu function.
+	* src/reference.cu (strncpy_gpu): Added function to copy characters 
+	from one string to another.
+
+2011-05-23  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testReference.cu: Added test cases for getHash_gpu, 
+	bubbleSort, arrSearch_gpu, getRandNum, arrGetRandomNums_gpu, getBestMatches, 
+	and refSearchQuery_kernel.
+	* src/reference.cu: Added functions to run on GPU such as getHash_gpu, 
+	bubbleSort, arrSearch_gpu, getRandNum, arrGetRandomNums_gpu, getBestMatches, 
+	and refSearchQuery_kernel.
+
+2011-05-16  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/main.cu (getParameters): Added a command-line parameter that 
+	indicates whether the program should be run on CPU only. 
+	* src/output.cu (printOutput_paired): Added function to output aligned 
+	paired-end queries. 
+	* src/align.cu: Added paired-end alignment support.
+	(getNumQueriesPerIteration_paired): Added function to count the number 
+	of queries per iteration for paired-end alignment.
+	* test/testSearch.cu: Added test cases for searchQueries_paired function.
+
+2011-05-11  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testReference.cu: Modified test cases.
+	* src/reference.cu (refSearchQuery_paired): Modified code so that 
+	result is passed as a parameter instead of being returned.
+	(getHits): Modified code. 
+
+2011-05-10  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testReference.cu: Added test cases for refSearchQuery_paired 
+	function.
+	* src/reference.cu (refSearchQuery_paired): Added code for paired-end 
+	alignment support.
+	(getHits): Added code for paired-end alignment support.
+
+2011-05-05  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* Makefile: Source is now first compiled into object files and 
+	then the executable is created.
+	* src/main.cu: Updated getParameters function to add support for 
+	fetching the paired query sequence file from the command-line.
+	Updated getUsage function to include parameter for fetching 
+	paired query sequence file.
+	* test/testQuery.cu: Added a test case for qryGetNext2 function.
+	* src/query.cu: Added a function to get the next Query given the query 
+	sequence file and a Query object.
+
+2011-05-04  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* Makefile: Changed program name from 'gpuSW' to 'swift'.
+	* README: Changed the program name from 'gpuSW' to 'swift'.
+	* test/testSmithWaterman.cu: Added a test case to check for correct 
+	behavior when the reference length is more than the number of bases 
+	in the reference sequence.
+	* src/smithWaterman.cu: Fixed a bug in computeMaxScore_cpu in which 
+	the alignment was being performed even beyond the null character 
+	of the reference sequence.
+
+2011-05-03  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/smithWaterman.cu: Fixed a bug in which gap open and extension 
+	penalties were being used in an incorrect manner. 
+	
+
+2011-04-26  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testSmithWaterman.cu: Added test case for CPU-based 
+	Smith-Waterman implementation.
+	* src/smithWaterman.cu: Added CPU-based implementation of Smith-Waterman.
+
+2011-04-21  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/main.cu: Gap opening and extension penalty was incorrectly 
+	assigned to 'mismatch'. It's now corrected.
+	Added command-line parameter "-v" to allow users to find out program 
+	version.
+
+2011-04-20  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/smithWaterman.cu: If a gap is openend on the query, isRefGapOpened
+	is set to 0; if a gap is opened on the reference, isQryGapOpened is 
+	set to 0. 
+
+2011-04-19  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/smithWaterman.cu: Removed functions that were not being used.
+	* test/testReference.cu (searchQuery): Now passing the max hits 
+	parameter to the refSearchQuery function. 
+	* test/testSearch.cu (searchQuery): Now passing the max hits parameter to 
+	the searchQueries function.  
+	* src/reference.cu (refSearchQuery): Now accepts as a parameter the max
+	number of hits per query to be returned.
+	(getBestScoringPosition): Now accepts as a parameter the max
+	number of hits per query to be returned.
+	* src/search.cu (searchQueries): Now accepts as a parameter the max
+	number of hits per query to be returned.
+	* src/main.cu (main): Now passing the max hits parameter to the 
+	searchQueries function. 
+
+2011-04-18  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testSmithWaterman.cu (backtrack): Fixed a small bug.
+
+2011-04-15  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testSmithWaterman.cu: Added new test file.
+	* test/testAlign.cu: Added new test file.
+
+2011-04-14  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testHitList.cu (duplicateNode): Added test case.
+	* src/hitList.cu (hitListDuplicateNode): Added function.
+	* src/smithWaterman.cu: Modified code so that now I don't get 
+	"Unspecified launch failure" anymore. 
+
+2011-03-31  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testSearch.cu (searchQuery): Added test cases.
+	* src/reference.cu (getBestScoringPosition): When the given list had 
+	only one node, a pointer to the list was being returned instead of 
+	a pointer to the copy of the list. This has been fixed.
+
+2011-03-30  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu: Removed refGetHashTable function.
+	Removed getUniqueHashCount function.
+	* src/smithWaterman.cu: Removed smithWaterman5 function.
+	Removed smithWaterman4 function.
+	Removed smithWaterman3 function.
+	Removed smithWaterman2 function.
+	Removed computeMaxScore2 function.
+	Removed computeMaxScore function.
+	Removed backtrack function.
+	Removed getPreviousCell function.
+	Removed getArrayMax function. 
+	Removed getBlockId function.
+	Removed getThreadId function.
+	Removed getSimilarityScore function.
+	(backtrack): Renamed backtrack2 function to backtrack.
+	(computeMaxScore): Renamed computeMaxScore2 function to computeMaxScore.
+	* src/memory.cu: Removed allocateDeviceMem2 function.
+	Removed allocateHostMem2 function.
+	Removed copyMemDeviceToHost2 function.
+	* src/input.cu: Removed adjustSeqOffset function.
+	Removed getSequences function.
+	Removed getSequences2 function.
+	Removed getSequences3 function.
+	* src/hitList.cu: Removed bubbleSort function.
+	* src/align.cu: Removed adjustSeqOffset2 function.
+	Removed getOffsets2 function.
+	Removed getQuerySeq function.
+	Removed getRefSeq function.
+
+2011-03-29  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (refSearchQuery): Fixed bug where reference sequence 
+	fragment offset was set to a strange value when subtracted by 
+	a number bigger than the fragment offset.
+	Removed getAvlblHashTablesFile function.
+	Removed refGetHashTableFile function. 
+	Removed refPrintHashTable function.
+	Removed refUpdateAvlblHashTablesFile function.
+	Removed avlblHashTablesFile variable.
+
+2011-03-28  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/input.cu (getSeqName): Changed fileOffset type from int to ulong.
+	(getSeq): Changed fileOffset type from int to ulong.
+	* src/reference.cu (refSearchQuery): Reference sequence fragment offset 
+	is set to reference sequence offset if the fragment offset is less 
+	than the sequence offset.
+
+2011-03-24  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/align.cu (getMemPerRefQryPair): Removed H matrix from memory 
+	requirement calculation.
+	* src/smithWaterman.cu (smithWaterman): Improved performance and 
+	fixed bugs.
+
+2011-03-21  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (refPreprocess): Not caching the reference hash anymore 
+	because I don't see any performance benefits in maintaining a cache.
+	(getBestScoringPosition): Changed array allocation of clusterSizeArr 
+	from stack to heap because stack based array allocation was throwing 
+	segmentation fault for some queries. 
+
+2011-03-18  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* Makefile: Removed list.cu.
+	* src/query.cu: Removed qryPrintMatches and qryPrintMatches2 functions 
+	from query.cu.
+	Removed qryInitializeMatchFile because it was no longer needed.
+	* src/preprocess.cu: Removed preprocess and preprocessRef functions 
+	because they were not needed anymore.
+	* src/search.cu (printHeuristicMatches): Made function static.
+	* test/testReference.cu (preprocess): Added unit test for refPreprocess
+	function.
+	* test/testRefPosList.cu (pushBack): Added test.
+	(isEqual): Added unit test for refPosListIsEqual function.
+	* src/refPosList.cu (refPosListPushBack): Added function.
+	(refPosListIsEqual): Added function.
+	Removed refPosListAppendUnique function because it was not needed anymore.
+	* README: Added instruction on profiling the code.
+
+2011-03-17  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/hitList.cu (merge): Now using hitListPushBack instead of 
+	hitListJoin function.
+	* src/reference.cu (refGetHashTable): Hash table is now initialized to 
+	NULL.
+	(refPreprocess): Modified function.
+	(refSearchQuery): Modified function.
+	(refSearchQuery): Now using hitListPushBack instead of hitListJoin function.
+	(getBestScoringPosition): Now using hitListPushBack instead of hitListJoin 
+	function.
+	* test/testReference.cu (searchQuery): Added test cases.
+
+2011-03-15  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (refSearchQuery): Made the query parameter constant.
+	* test/testQuery.cu (create): Added test function.
+	* src/query.cu (qryCreate): Added new function.
+
+2011-03-14  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/refPosList.cu (refPosListDelete): Fixed a bug.
+	* test/testHitList.cu (popFront): Added test.
+	* src/hitList.cu (hitListPopFront): Added function.
+	(mergeSort): Added merge sort function.
+	* src/reference.cu (getBestScoringPosition): Added code to free up 
+	heap memory.
+	(refSearchQuery): Added code to free up heap memory.
+	* src/search.cu (searchQueries): Once a filtered results file is printed in 
+	phase-1, list of HitList nodes are deleted.
+
+2011-03-11  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/reference.cu (getBestScoringPosition): Made this function static.
+	(refSearchQuery): Changed the order in which lists to be joined are passed 
+	to hitListJoin function.
+	* test/testHitList.cu (join): Added test cases for hitListJoin function.
+	(createNode): Added check for 'next' and 'prev' properties of the 
+	created node.
+	(getSize): Added test cases for hitListGetSize function.
+	(copyNode): Added test case for hitListCopyNode function.
+	* src/hitList.cu (hitListCmpNodes): Added fumnction to compare nodes.
+	(bubbleSort): Transferred node comparison code to hitListCmpNodes function.
+	(hitListJoin): Modified code to set 'prev' property of appended list.
+	(hitListCopyNode): hitListCopyNode function now returns a pointer to the 
+	destination node.
+
+2011-03-10  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testHitList.cu (sort): Added test for hitListSort function.
+	(swapAdjNodes): Removed test for hitListSwapNodes and added test for 
+	hitListSwapAdjNodes function.
+	(cmpNodes): Added test cases for hitListCmpNodes function.
+	* src/hitList.cu (hitListSwapAdjNodes): Modified hitListSwapNodes function 
+	to hitListSwapAdjNodes function.
+	* src/reference.cu: Removed refSearchQuery2 function.
+
+2011-03-09  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* README: Updated description, hardware and software requirements, and 
+	installation.
+	* src/main.cu (getParameters): If one of the required command-line 
+	parameters are not entered during program invocation, the program 
+	prints usage and exits.
+	* src/input.cu (getOffsets): Added an additional parameter to determine 
+	whether the offsets correspond to the reverse complement of a query.
+	* test/testInput.cu (getOffsets): Added a new test.
+
+2011-03-08  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/align.cu (alignQueries): Calling adjustSeqOffset function to adjust 
+	the reference sequence offset.
+	* src/reference.cu (refPreprocess): File offset of a sequence fragment 
+	is now the same as the file offset of the whole sequence.
+	* src/input.cu (adjustSeqOffset): Added function. 
+	* test/testInput.cu: Added new test file. 
+	Added a few test cases.
+
+2011-03-07  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/preprocess.cu: Added explicit casting in the pow functions.
+	* src/reference.cu (refPreprocess): Added explicit casting in the pow
+	function.
+	* src/align.cu (alignQueries): Changed how reference sequence offset is 
+	calculated.
+	* src/input.cu (getSeq): Breaking out of the loop when a new sequence 
+	ID is encountered.
+	(getOffsets): Instead of using shift, now using offset as the reference 
+	distance.
+	(getOffsets): Changing back to using shift instead of offset as the 
+	reference distance.
+	(getOffsets): Added a condition such that if reference distance is less 
+	than 0, it is set to 0.
+	* src/output.cu (printOutputSam): The output file pointer is now being 
+	passed as a parameter instead of the file name.
+	(printOutput): The output file pointer is now being passed as a 
+	parameter instead of the file name.
+
+2011-03-04  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/array.cu: Added file.
+	* test/testArray.cu (arraySuite): Added file.
+	* src/reference.cu (getRandomNums): Added function.
+
+2011-03-03  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/output.cu (printOutput): Output will now be printed to a file.
+	(printOutputSam): Output will now be printed to a file.
+	(printCigar): Output will now be printed to a file.
+	* src/align.cu (alignQueries): Added match score, mismatch score and 
+	output file as parameters.
+	* src/main.cu (getParameters): Added new parameters.
+	Made the function static.
+	(getUsage): Modified.
+	(main): Passed match score, mismatch score and output file as parameters 
+	to alignQueries function.
+	* src/common.h: Added new macros.
+	* test/testReference.cu (getHashTableFile): Added new test cases.
+	* src/reference.cu: Created new functions and modified existing ones.
+	(refGetBestScoringPosition): Returning multiple best-matches instead of 
+	only 1.
+	(refPreprocess): Only non-overlapping tuples of the reference are 
+	considered.
+
+2011-03-01  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* test/testReference.cu (isHashTableAvailable): Added 2 test cases.
+	* src/reference.cu (refPrintHashTable): Added function.
+	* README: Added file.
+	* src/main.cu (main): Now passing the match file as an argument to 
+	alignQueries and searchQueries functions.
+	(main): Now passing the output format as an argument to alignQueries. 
+	(getParameters): Now returns a 1 on success and 0 on failure.
+	(getUsage): Added program usage.
+	(main): Number of references and queries and the size of reference 
+	and query are now automatically calculated. 
+	* src/search.cu (searchQueries): Match file is now passed as a parameter.
+	* src/align.cu (alignQueries): Match file is now passed as a parameter.
+	(alignQueries): Output format is now passed as a parameter.
+
+2011-02-28  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* Makefile: Changed the name of the executable.
+	* src/reference.cu (refPreprocess): Fixed reference name and sequence 
+	offset calculation.
+	(refPreprocess): Fixed reference sequence offset calculation. 
+	* src/query.cu (qryGetNext): Fixed query sequence offset calculation.
+
+2011-02-25  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/input.cu (getOffsets): Modified code so that input can be parsed 
+	in the new format. 
+	* src/search.cu (printHeuristicMatches): Modified code so that query name 
+	offset, query sequence offset, reference name offset, and reference 
+	sequence offset can be printed to the intermediate output file.
+	* src/query.cu (qryGetNext): Added code to calculate nameOffset and 
+	seqOffset.
+	(qryGetNext): Reverse complement is now created in this function.
+	(qryGetNext): Removed unnecessary variables.
+	* src/query.h: Added new data members.
+	Added new data member.
+	* test/testMain.cu (main): Added test suite for RefPosList.
+	* test/testRefPosList.cu: New source file.
+	(create): Created new test case.
+	(create): Added new test.
+	(deleteList): Added new test.
+	* test/testRefPosList.h: New header file.
+	* src/refPosList.h: Removed refPosListSort function.
+	Removed bubbleSort function.
+	Added new data members to structure.
+	* src/refPosList.cu: Removed refPosListSort function.
+	Removed bubbleSort function.
+	(refPosListPrint): Now also prints new data members.
+	(refPosListCreate): Created new function.
+	(refPosListDelete): Created new function.
+	* src/reference.cu: Removed refGetNext function.
+	Removed refGetFileId function.
+	Removed refAddFile function.
+	Removed fileArr and fileArrSize variables.
+	Removed refGetNameId function.
+	Removed refAddName function.
+	Removed refArr and refArrSize variables.
+	Removed refGetPseudoPosition function.
+	Removed refGetNumPartitions function.
+	Removed refGetPartitionIndex function.
+	(refInitialize): Removed memory allocation for ref->seq.
+	Removed memory allocation for ref and ref->name.
+	(refPreprocess): Added code to calculate nameOffset and seqOffset of 
+	the reference sequence.
+	(refPreprocess): Changed how new node is appended to lookupTable.
+	(refSearchQuery): Changed the interface.
+	* src/reference.h: Removed refGetNext function.
+	Removed refGetFileId function.
+	Removed refAddFile function.
+	Removed refGetNameId function.
+	Removed refAddName function.
+	Removed refGetPseudoPosition function.
+	Removed refGetNumPartitions function.
+	Removed refGetPartitionIndex function.
+	* src/hitList.cu (hitListSwapNodes): New function.
+	(bubbleSort): Now using hitListSwapNodes function to swap nodes.
+	(hitListPrintNodes): Corrected printf format specifier for 'unsinged 
+	long int'.
+	(hitListSwapNodes): Removed warning message.
+	* src/hitList.h (hitListSwapNodes): New function.
+	Added 'static' modifier to bubbleSort function. 
+	* test/testHitList.cu: Added test cases to test hitListSwapNodes function. 
+
+2011-02-24  Pankaj Gupta  <pankaj.gupta@stjude.org>
+
+	* src/hitList.h: Changed hitListCreateNode function declaration 
+	to accomodate new data members.
+	* src/hitList.cu: Added additional parameters to hitListCreateNode function.
+	(hitListPrintNodes): Changed to accomodate new data members.
+	(hitListCopyNode): Changed to accomodate new data members.
+	* src/common.h: Added more macros.
+	* src/search.cu (printHeuristicMatches): New function.
